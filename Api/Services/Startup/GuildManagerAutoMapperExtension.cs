@@ -4,7 +4,7 @@ namespace GuildManager;
 
 public static class AutoMapperExtension
 {
-  public static void AddMappings(this IServiceCollection services)
+  public static void AddGuildManagerMappings(this IServiceCollection services)
   {
     services.AddAutoMapper(o =>
     {

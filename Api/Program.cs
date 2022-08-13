@@ -9,8 +9,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
+
+// Guild Manager Extension Methods
 builder.Services.AddGuildManagerAuth(builder.Configuration);
-builder.Services.AddMappings();
+builder.Services.AddGuildManagerMappings();
 builder.Services.AddGuildManagerServices(builder.Configuration);
 
 var app = builder.Build();
