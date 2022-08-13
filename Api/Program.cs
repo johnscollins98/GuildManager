@@ -1,8 +1,4 @@
-using System.Net.Http.Headers;
-using AspNet.Security.OAuth.Discord;
 using GuildManager;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,60 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
-builder.Services
-  .AddAuthentication(o =>
-  {
-    o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    o.DefaultAuthenticateScheme = DiscordAuthenticationDefaults.AuthenticationScheme;
-  })
-  .AddCookie(o =>
-  {
-    o.Events.OnRedirectToLogin = context =>
-    {
-      context.Response.StatusCode = 401;
-      return Task.CompletedTask;
-    };
-
-    o.Events.OnRedirectToAccessDenied = context => 
-    {
-      context.Response.StatusCode = 403;
-      return Task.CompletedTask;
-    };
-  })
-  .AddDiscord(o =>
-  {
-    o.ClientId = builder.Configuration["Discord:ClientId"];
-    o.ClientSecret = builder.Configuration["Discord:ClientSecret"];
-    o.SaveTokens = true;
-    o.Scope.Add("guilds");
-    o.Scope.Add("guilds.members.read");
-  });
-
-builder.Services.AddAuthorization(options => 
-{
-  options.AddPolicy("AdminPolicy", 
-    policy => 
-    {
-      policy.RequireAuthenticatedUser();
-      policy.Requirements.Add(new AdminRequirement());
-    });
-});
-
-builder.Services.AddAutoMapper(o =>
-{
-  o.CreateMap<DiscordGuild, DiscordGuildDto>();
-  o.CreateMap<DiscordGuildMember, DiscordGuildMemberDto>();
-  o.CreateMap<DiscordUser, DiscordUserDto>();
-});
-
-builder.Services.AddHttpClient<IUserDiscordService, UserDiscordService>();
-builder.Services.AddHttpClient<IDiscordService, DiscordService>(o =>
-{
-  var botToken = builder.Configuration["Discord:BotToken"];
-  o.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bot", botToken);
-  o.BaseAddress = new Uri("https://discord.com/api/");
-});
-builder.Services.AddTransient<IAuthorizationHandler, AdminAuthorizationHandler>();
+builder.Services.AddGuildManagerAuth(builder.Configuration);
+builder.Services.AddMappings();
+builder.Services.AddGuildManagerServices(builder.Configuration);
 
 var app = builder.Build();
 
