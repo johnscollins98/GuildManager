@@ -1,3 +1,5 @@
+using GuildManager.Discord;
+
 namespace GuildManager;
 
 public static class AutoMapperExtension
@@ -6,9 +8,9 @@ public static class AutoMapperExtension
   {
     services.AddAutoMapper(o =>
     {
-      o.CreateMap<DiscordGuild, DiscordGuildDto>();
-      o.CreateMap<DiscordGuildMember, DiscordGuildMemberDto>();
-      o.CreateMap<DiscordUser, DiscordUserDto>();
+      o.CreateMap<Guild, GuildDto>();
+      o.CreateMap<GuildMember, GuildMemberDto>();
+      o.CreateMap<Discord.User, UserDto>();
     });
   }
 }

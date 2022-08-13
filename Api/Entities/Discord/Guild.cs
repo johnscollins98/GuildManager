@@ -1,6 +1,6 @@
-namespace GuildManager;
+namespace GuildManager.Discord;
 
-public class DiscordGuild
+public class Guild
 {
   public string Id { get; set; } = String.Empty;
   public string Name { get; set; } = String.Empty;

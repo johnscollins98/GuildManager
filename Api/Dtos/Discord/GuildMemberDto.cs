@@ -1,9 +1,9 @@
-namespace GuildManager;
+namespace GuildManager.Discord;
 
-public class DiscordGuildMemberDto
+public class GuildMemberDto
 {
   public string Nick { get; set; } = String.Empty;
-  public DiscordUserDto User { get; set; } = new DiscordUserDto();
+  public UserDto User { get; set; } = new UserDto();
   public IEnumerable<string> Roles { get; set; } = new List<string>();
   public DateTime JoinedAt { get; set; }
 }

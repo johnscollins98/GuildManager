@@ -1,6 +1,8 @@
+using GuildManager.Discord;
+
 namespace GuildManager;
 
 public interface IDiscordService
 {
-  public Task<IEnumerable<DiscordGuildMember>?> GetGuildMembersAsync(string guildId);
+  public Task<IEnumerable<GuildMember>?> GetGuildMembersAsync(string guildId);
 }

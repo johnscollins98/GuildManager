@@ -1,4 +1,5 @@
 using AutoMapper;
+using GuildManager.Discord;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GuildManager;
@@ -19,17 +20,17 @@ public class UserDiscordController : ControllerBase
   }
 
   [HttpGet("Guilds")]
-  public async Task<ActionResult<IEnumerable<DiscordGuildDto>>> GetGuilds()
+  public async Task<ActionResult<IEnumerable<GuildDto>>> GetGuilds()
   {
 
     var guilds = await discordHttpService.GetUserGuildsAsync();
-    return Ok(mapper.Map<IEnumerable<DiscordGuildDto>>(guilds));
+    return Ok(mapper.Map<IEnumerable<GuildDto>>(guilds));
   }
 
   [HttpGet("Guilds/{guildId}")]
-  public async Task<ActionResult<DiscordGuildMemberDto>> GetUserAsGuildMember(string guildId)
+  public async Task<ActionResult<GuildMemberDto>> GetUserAsGuildMember(string guildId)
   {
     var guildMember = await discordHttpService.GetUserAsGuildMemberAsync(guildId);
-    return Ok(mapper.Map<DiscordGuildMemberDto>(guildMember));
+    return Ok(mapper.Map<GuildMemberDto>(guildMember));
   }
 }

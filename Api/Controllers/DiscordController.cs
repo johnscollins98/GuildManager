@@ -1,4 +1,5 @@
 using AutoMapper;
+using GuildManager.Discord;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ public class DiscordController : ControllerBase
 
   [Authorize(Policy = "AdminPolicy")]
   [HttpGet("Guilds/{guildId}/Members")]
-  public async Task<ActionResult<IEnumerable<DiscordGuildMemberDto>>> GetGuilds(string guildId)
+  public async Task<ActionResult<IEnumerable<GuildMemberDto>>> GetGuilds(string guildId)
   {
     var members = await discordService.GetGuildMembersAsync(guildId);
     if (members == null)
@@ -27,6 +28,6 @@ public class DiscordController : ControllerBase
       return NotFound();
     }
 
-    return Ok(mapper.Map<IEnumerable<DiscordGuildMemberDto>>(members));
+    return Ok(mapper.Map<IEnumerable<GuildMemberDto>>(members));
   }
 }

@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using GuildManager.Discord;
 using Microsoft.AspNetCore.Authentication;
 
 namespace GuildManager;
@@ -14,15 +15,15 @@ public class UserDiscordService : IUserDiscordService
     _httpContext = httpContextAccessor.HttpContext ?? throw new ArgumentNullException(nameof(httpContextAccessor.HttpContext));
   }
 
-  public async Task<DiscordGuildMember> GetUserAsGuildMemberAsync(string guildId)
+  public async Task<GuildMember> GetUserAsGuildMemberAsync(string guildId)
   {
-    var guildMember = await makeAuthenticatedRequest<DiscordGuildMember>($"guilds/{guildId}/member", HttpMethod.Get);
+    var guildMember = await makeAuthenticatedRequest<GuildMember>($"guilds/{guildId}/member", HttpMethod.Get);
     return guildMember;
   }
 
-  public async Task<IEnumerable<DiscordGuild>> GetUserGuildsAsync()
+  public async Task<IEnumerable<Guild>> GetUserGuildsAsync()
   {
-    var guilds = await makeAuthenticatedRequest<IEnumerable<DiscordGuild>>("guilds", HttpMethod.Get);
+    var guilds = await makeAuthenticatedRequest<IEnumerable<Guild>>("guilds", HttpMethod.Get);
     return guilds;
   }
 
