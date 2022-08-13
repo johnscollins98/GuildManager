@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GuildManager;
@@ -16,6 +17,7 @@ public class DiscordController : ControllerBase
     this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
   }
 
+  [Authorize(Policy = "AdminPolicy")]
   [HttpGet("Guilds/{guildId}/Members")]
   public async Task<ActionResult<IEnumerable<DiscordGuildMemberDto>>> GetGuilds(string guildId)
   {

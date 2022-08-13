@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using AspNet.Security.OAuth.Discord;
 using GuildManager;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,12 @@ builder.Services
       context.Response.StatusCode = 401;
       return Task.CompletedTask;
     };
+
+    o.Events.OnRedirectToAccessDenied = context => 
+    {
+      context.Response.StatusCode = 403;
+      return Task.CompletedTask;
+    };
   })
   .AddDiscord(o =>
   {
@@ -34,6 +41,16 @@ builder.Services
     o.Scope.Add("guilds");
     o.Scope.Add("guilds.members.read");
   });
+
+builder.Services.AddAuthorization(options => 
+{
+  options.AddPolicy("AdminPolicy", 
+    policy => 
+    {
+      policy.RequireAuthenticatedUser();
+      policy.Requirements.Add(new AdminRequirement());
+    });
+});
 
 builder.Services.AddAutoMapper(o =>
 {
@@ -48,6 +65,8 @@ builder.Services.AddHttpClient<IDiscordService, DiscordService>(o =>
   o.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bot", botToken);
   o.BaseAddress = new Uri("https://discord.com/api/");
 });
+builder.Services.AddTransient<IAuthorizationHandler, AdminAuthorizationHandler>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

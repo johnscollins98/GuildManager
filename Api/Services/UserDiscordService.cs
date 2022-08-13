@@ -33,7 +33,7 @@ public class UserDiscordService : IUserDiscordService
     var token = await _httpContext.GetTokenAsync("access_token");
     if (token == null)
     {
-      throw new NullReferenceException(nameof(token));
+      throw new MissingAccessTokenException();
     }
 
     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -44,7 +44,7 @@ public class UserDiscordService : IUserDiscordService
     var parsedContent = await response.Content.ReadFromJsonAsync<T>();
     if (parsedContent == null)
     {
-      throw new NullReferenceException(nameof(parsedContent));
+      throw new InvalidDataException(nameof(parsedContent));
     }
 
     return parsedContent;
