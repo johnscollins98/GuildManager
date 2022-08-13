@@ -38,11 +38,11 @@ public static class GuildManagerAuthExtension
 
     services.AddAuthorization(options =>
     {
-      options.AddPolicy("AdminPolicy",
+      options.AddPolicy("OwnerPolicy",
         policy =>
         {
           policy.RequireAuthenticatedUser();
-          policy.Requirements.Add(new AdminRequirement());
+          policy.Requirements.Add(new OwnerRequirement());
         });
     });
   }

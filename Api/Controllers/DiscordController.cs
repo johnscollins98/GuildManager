@@ -18,7 +18,7 @@ public class DiscordController : ControllerBase
     this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
   }
 
-  [Authorize(Policy = "AdminPolicy")]
+  [Authorize(Policy = "OwnerPolicy")]
   [HttpGet("Guilds/{guildId}/Members")]
   public async Task<ActionResult<IEnumerable<GuildMemberDto>>> GetGuildMembers(string guildId)
   {

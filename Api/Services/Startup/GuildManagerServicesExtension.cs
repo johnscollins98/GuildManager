@@ -14,6 +14,7 @@ public static class GuildManagerServicesExtension
       o.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bot", botToken);
       o.BaseAddress = new Uri("https://discord.com/api/");
     });
-    services.AddTransient<IAuthorizationHandler, AdminAuthorizationHandler>();
+
+    services.AddTransient<IAuthorizationHandler, OwnerAuthorizationHandler>();
   }
 }
