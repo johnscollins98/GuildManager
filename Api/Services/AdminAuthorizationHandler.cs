@@ -5,11 +5,6 @@ namespace GuildManager;
 
 public class AdminRequirement : IAuthorizationRequirement { }
 
-public class AdminData
-{
-  public string GuildId { get; set; } = String.Empty;
-}
-
 public class AdminAuthorizationHandler : AuthorizationHandler<AdminRequirement>
 {
   private readonly IUserDiscordService userDiscordService;
