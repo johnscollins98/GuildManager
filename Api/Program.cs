@@ -56,6 +56,7 @@ builder.Services.AddAutoMapper(o =>
 {
   o.CreateMap<DiscordGuild, DiscordGuildDto>();
   o.CreateMap<DiscordGuildMember, DiscordGuildMemberDto>();
+  o.CreateMap<DiscordUser, DiscordUserDto>();
 });
 
 builder.Services.AddHttpClient<IUserDiscordService, UserDiscordService>();

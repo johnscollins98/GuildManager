@@ -9,4 +9,5 @@ public class DiscordGuildMember
 
   [JsonPropertyName("joined_at")]
   public DateTime JoinedAt { get; set; }
+  public DiscordUser User { get; set; } = new DiscordUser();
 }
