@@ -12,5 +12,7 @@ public static class AutoMapperExtension
       o.CreateMap<GuildMember, GuildMemberDto>();
       o.CreateMap<Discord.User, UserDto>();
     });
+
+    services.AddAutoMapper(typeof(GuildConfigurationProfile).Assembly);
   }
 }

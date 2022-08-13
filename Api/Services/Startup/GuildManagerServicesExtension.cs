@@ -15,6 +15,10 @@ public static class GuildManagerServicesExtension
       o.BaseAddress = new Uri("https://discord.com/api/");
     });
 
+    services.AddDbContext<GuildManagerDbContext>();
+    services.AddScoped<IGuildConfigurationRepository, GuildConfigurationDbRepository>();
+    services.AddScoped<AdminRoleResolver>();
+
     services.AddTransient<IAuthorizationHandler, OwnerAuthorizationHandler>();
   }
 }

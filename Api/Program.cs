@@ -12,8 +12,8 @@ builder.Services.AddHttpContextAccessor();
 
 // Guild Manager Extension Methods
 builder.Services.AddGuildManagerAuth(builder.Configuration);
-builder.Services.AddGuildManagerMappings();
 builder.Services.AddGuildManagerServices(builder.Configuration);
+builder.Services.AddGuildManagerMappings();
 
 var app = builder.Build();
 
