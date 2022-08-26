@@ -16,10 +16,8 @@ public class GuildManagerDbContext : DbContext
 
   protected override void OnConfiguring(DbContextOptionsBuilder options)
   {
-    var folder = Environment.SpecialFolder.LocalApplicationData;
-    var path = Environment.GetFolderPath(folder);
-    var dbPath = System.IO.Path.Join(path, "guild-manager.db");
-
-    options.UseSqlite($"Data Source={dbPath}");
+    var path = Path.Join(Directory.GetCurrentDirectory(), "App_Data");
+    Directory.CreateDirectory(path);
+    options.UseSqlite($"Data Source={Path.Join(path, "guild-manager.db")}");
   }
 }
