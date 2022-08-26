@@ -8,7 +8,7 @@ const UserInfoCard: FC<UserInfoCardProps> = () => {
   const { data, isError, isLoading } = useFetchUserData();
   if (isLoading) return <Loader />;
 
-  const devEndpoint = process.env.REACT_APP_API_ENDPOINT;
+  const devEndpoint = process.env.REACT_APP_API_ENDPOINT ?? '';
 
   return (
     <>
