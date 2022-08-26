@@ -26,4 +26,10 @@ public class DiscordService : IDiscordService
     return await httpClient.GetFromJsonAsync<IEnumerable<GuildMember>>(
       $"guilds/{guildId}/members?limit=1000");
   }
+
+  public async Task<IEnumerable<Role>?> GetGuildRoles(string guildId)
+  {
+    return await httpClient.GetFromJsonAsync<IEnumerable<Role>>(
+      $"guilds/{guildId}/roles");
+  }
 }

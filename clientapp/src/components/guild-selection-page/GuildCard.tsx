@@ -10,7 +10,7 @@ interface GuildCardProps {
 const GuildCard: FC<GuildCardProps> = ({ guild }) => {
   const navigate = useNavigate();
   return (
-    <div className="card guild-card" onClick={() => navigate(`/${guild.id}`)}>
+    <div className="card guild-card" onClick={() => navigate(`/${guild.id}/config`)}>
       <div className="card-body">
         <img
           src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`}

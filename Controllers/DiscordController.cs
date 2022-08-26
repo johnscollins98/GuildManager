@@ -30,4 +30,18 @@ public class DiscordController : ControllerBase
 
     return Ok(mapper.Map<IEnumerable<GuildMemberDto>>(members));
   }
+
+  [Authorize(Policy = "OwnerPolicy")]
+  [HttpGet("Guild/{guildId}/Roles")]
+  public async Task<ActionResult<IEnumerable<RoleListDto>>> GetRoleList(string guildId)
+  {
+    var roles = await discordService.GetGuildRoles(guildId);
+    if (roles == null)
+    {
+      return NotFound();
+    }
+    
+    var roleDtos = mapper.Map<IEnumerable<RoleListDto>>(roles);
+    return Ok(roles);
+  }
 }

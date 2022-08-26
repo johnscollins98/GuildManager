@@ -5,6 +5,7 @@ import GuildDetailsPage from './guild-details-page/GuildDetailsPage';
 import GuildSelectionPage from './guild-selection-page/GuildSelectionPage';
 import Header from './header/Header';
 import './App.scss';
+import GuildConfigPage from './guild-config-page/GuildConfigPage';
 
 const App: FC = () => {
   const { data: userData } = useFetchUserData();
@@ -18,6 +19,7 @@ const App: FC = () => {
             <Routes>
               <Route path="/" element={<GuildSelectionPage />}></Route>
               <Route path="/:guildId" element={<GuildDetailsPage />}></Route>
+              <Route path="/:guildId/config" element={<GuildConfigPage />}></Route>
             </Routes>
           )}
         </div>
