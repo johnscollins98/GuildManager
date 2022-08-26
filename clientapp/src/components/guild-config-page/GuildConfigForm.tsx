@@ -1,7 +1,6 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { RoleListDto } from '../../lib/discord-guild/models/roleListDto';
 import { GuildConfigDetailDto } from '../../lib/guild-config/models/guildConfigDetailDto';
-import { useUpdateGuildConfig } from '../../lib/guild-config/mutations/useUpdateGuildConfig';
 
 interface GuildConfigFormProps {
   guildConfig: GuildConfigDetailDto;
@@ -24,7 +23,7 @@ const GuildConfigForm: FC<GuildConfigFormProps> = ({
 
   const toggleRole = (role: RoleListDto) => {
     const checked = guildConfigEdit.adminRoleIds.includes(role.id);
-    const newList = checked ? guildConfigEdit.adminRoleIds.filter(r => r != role.id) : [...guildConfigEdit.adminRoleIds, role.id];
+    const newList = checked ? guildConfigEdit.adminRoleIds.filter(r => r !== role.id) : [...guildConfigEdit.adminRoleIds, role.id];
     setGuildConfigEdit({ ...guildConfigEdit, adminRoleIds: newList });
   }
 
