@@ -1,16 +1,16 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserGuildListDto } from '../../lib/user-discord/models/userGuildListDto';
-import './UserGuildCard.scss';
+import './GuildCard.scss';
 
-interface UserGuildCardProps {
+interface GuildCardProps {
   guild: UserGuildListDto;
 }
 
-const UserGuildCard: FC<UserGuildCardProps> = ({ guild }) => {
+const GuildCard: FC<GuildCardProps> = ({ guild }) => {
   const navigate = useNavigate();
   return (
-    <div className="card user-guild-card" onClick={() => navigate(`/${guild.id}`)}>
+    <div className="card guild-card" onClick={() => navigate(`/${guild.id}`)}>
       <div className="card-body">
         <img
           src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`}
@@ -22,4 +22,4 @@ const UserGuildCard: FC<UserGuildCardProps> = ({ guild }) => {
   );
 };
 
-export default UserGuildCard;
+export default GuildCard;

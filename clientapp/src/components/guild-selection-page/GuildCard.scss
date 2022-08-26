@@ -1,9 +1,9 @@
-.user-guild-card {
+.guild-card {
   display: flex;
   flex-grow: 1;
   box-shadow: -2px 2px 4px grey;
   cursor: pointer;
-  
+
   &:hover {
     box-shadow: -4px 4px 6px grey;
   }
