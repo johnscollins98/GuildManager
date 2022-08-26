@@ -1,0 +1,26 @@
+.user-guild-card {
+  display: flex;
+  flex-grow: 1;
+  box-shadow: -2px 2px 4px grey;
+  cursor: pointer;
+  
+  &:hover {
+    box-shadow: -4px 4px 6px grey;
+  }
+  transition: box-shadow 0.2s;
+
+  .card-body {
+    display: flex;
+    align-items: center;
+
+    h4 {
+      margin: 0;
+    }
+
+    img {
+      height: 4em;
+      margin-right: 1em;
+      border-radius: 5px;
+    }
+  }
+}

@@ -1,5 +1,5 @@
-table.user-guilds-list {
-  tr {
-    cursor: pointer;
-  }
+div.guild-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
