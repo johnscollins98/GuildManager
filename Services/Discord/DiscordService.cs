@@ -11,6 +11,16 @@ public class DiscordService : IDiscordService
     this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
   }
 
+  public async Task<IEnumerable<Guild>> GetBotGuilds()
+  {
+    var botGuilds = await httpClient.GetFromJsonAsync<IEnumerable<Guild>>("users/@me/guilds");
+    if (botGuilds == null)
+    {
+      throw new FormatException("Received empty response for bot guilds");
+    }
+    return botGuilds;
+  }
+
   public async Task<IEnumerable<GuildMember>?> GetGuildMembersAsync(string guildId)
   {
     return await httpClient.GetFromJsonAsync<IEnumerable<GuildMember>>(
