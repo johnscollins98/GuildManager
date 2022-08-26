@@ -4,6 +4,7 @@ import { useFetchUserData } from '../lib/user/queries/useFetchUserData';
 import GuildDetailsPage from './guild-details-page/GuildDetailsPage';
 import GuildSelectionPage from './guild-selection-page/GuildSelectionPage';
 import Header from './header/Header';
+import './App.scss';
 
 const App: FC = () => {
   const { data: userData } = useFetchUserData();
