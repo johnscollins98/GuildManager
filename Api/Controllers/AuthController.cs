@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AspNet.Security.OAuth.Discord;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -19,9 +20,33 @@ public class AuthController : ControllerBase
   }
 
   [HttpGet("Logout")]
-  public IActionResult Logout()
+  public async Task<IActionResult> Logout()
   {
-    return SignOut(new AuthenticationProperties { RedirectUri = "/" },
-      CookieAuthenticationDefaults.AuthenticationScheme);
+    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+    return Redirect("/");
+  }
+
+  [HttpGet]
+  [Authorize]
+  public ActionResult<UserDto> GetCurrentUserInfo()
+  {
+    if (User == null)
+    {
+      return Unauthorized();
+    }
+
+    var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+    var name = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+
+    if (id == null || name == null)
+    {
+      return Unauthorized();
+    }
+
+    return Ok(new UserDto
+    {
+      Id = id.Value,
+      Name = name.Value
+    });
   }
 }
