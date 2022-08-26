@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
 
   [HttpGet]
   [Authorize]
-  public ActionResult<UserDto> GetCurrentUserInfo()
+  public ActionResult<AuthUserDto> GetCurrentUserInfo()
   {
     if (User == null)
     {
@@ -43,7 +43,7 @@ public class AuthController : ControllerBase
       return Unauthorized();
     }
 
-    return Ok(new UserDto
+    return Ok(new AuthUserDto
     {
       Id = id.Value,
       Name = name.Value
