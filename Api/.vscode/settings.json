@@ -3,6 +3,10 @@
     "**/bin": true,
     "**/obj": true
   },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+  },
   "editor.tabSize": 2,
   "editor.insertSpaces": true
 }
