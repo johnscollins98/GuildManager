@@ -37,6 +37,13 @@ public static class GuildManagerAuthExtension
 
     services.AddAuthorization(options =>
     {
+      options.AddPolicy("AdminPolicy",
+        policy =>
+        {
+          policy.RequireAuthenticatedUser();
+          policy.Requirements.Add(new AdminRequirement());
+        });
+
       options.AddPolicy("OwnerPolicy",
         policy =>
         {

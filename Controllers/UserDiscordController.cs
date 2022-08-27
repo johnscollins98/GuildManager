@@ -1,10 +1,11 @@
-using System.Security.Claims;
 using AutoMapper;
 using GuildManager.Discord;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GuildManager;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class UserDiscordController : ControllerBase

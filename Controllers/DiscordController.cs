@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GuildManager;
 
 [ApiController]
+[Authorize(Policy = "AdminPolicy")]
 [Route("[controller]")]
 public class DiscordController : ControllerBase
 {
@@ -18,7 +19,6 @@ public class DiscordController : ControllerBase
     this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
   }
 
-  [Authorize(Policy = "OwnerPolicy")]
   [HttpGet("Guilds/{guildId}/Members")]
   public async Task<ActionResult<IEnumerable<GuildMemberDto>>> GetGuildMembers(string guildId)
   {
@@ -31,7 +31,6 @@ public class DiscordController : ControllerBase
     return Ok(mapper.Map<IEnumerable<GuildMemberDto>>(members));
   }
 
-  [Authorize(Policy = "OwnerPolicy")]
   [HttpGet("Guild/{guildId}/Roles")]
   public async Task<ActionResult<IEnumerable<RoleListDto>>> GetRoleList(string guildId)
   {

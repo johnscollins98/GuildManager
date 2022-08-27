@@ -19,5 +19,6 @@ public static class GuildManagerServicesExtension
     services.AddScoped<AdminRoleResolver>();
 
     services.AddTransient<IAuthorizationHandler, OwnerAuthorizationHandler>();
+    services.AddTransient<IAuthorizationHandler, AdminAuthorizationHandler>();
   }
 }

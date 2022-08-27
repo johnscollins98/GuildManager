@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GuildManager;
 
 [ApiController]
+[Authorize(Policy = "OwnerPolicy")]
 [Route("[controller]")]
 public class GuildConfigurationController : ControllerBase
 {
@@ -18,7 +19,6 @@ public class GuildConfigurationController : ControllerBase
   }
 
   [HttpGet("{guildId}", Name = "GetGuildConfiguration")]
-  [Authorize(Policy = "OwnerPolicy")]
   public ActionResult<GuildConfigurationDetailsDto> GetGuildConfiguration(string guildId)
   {
     var guildConfiguration = guildConfigurationRepository.Get(guildId);
@@ -31,7 +31,6 @@ public class GuildConfigurationController : ControllerBase
   }
 
   [HttpPut("{guildId}")]
-  [Authorize(Policy = "OwnerPolicy")]
   public ActionResult<GuildConfigurationDetailsDto> CreateOrUpdateGuildConfiguration(string guildId, [FromBody] GuildConfigurationUpdateDto updateDto)
   {
     var alreadyExisted = guildConfigurationRepository.GuildConfigurationDoesExist(guildId);
@@ -50,7 +49,6 @@ public class GuildConfigurationController : ControllerBase
   }
 
   [HttpDelete("{guildId}")]
-  [Authorize(Policy = "OwnerPolicy")]
   public IActionResult DeleteGuildConfiguration(string guildId)
   {
     var configExists = guildConfigurationRepository.GuildConfigurationDoesExist(guildId);
