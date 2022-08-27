@@ -31,18 +31,11 @@ public class OwnerAuthorizationHandler : AuthorizationHandler<OwnerRequirement>
       return;
     }
 
-    try
-    {
-      var isOwner = await discordService.IsUserGuildOwnerAsync(guildId, userId);
+    var isOwner = await discordService.IsUserGuildOwnerAsync(guildId, userId);
 
-      if (isOwner)
-      {
-        context.Succeed(requirement);
-      };
-    }
-    catch (MissingAccessTokenException)
+    if (isOwner)
     {
-      context.Fail(new AuthorizationFailureReason(this, "Missing access token"));
-    }
+      context.Succeed(requirement);
+    };
   }
 }

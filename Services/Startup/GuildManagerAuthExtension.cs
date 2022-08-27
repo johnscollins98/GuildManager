@@ -31,7 +31,6 @@ public static class GuildManagerAuthExtension
       {
         o.ClientId = config["Discord:ClientId"];
         o.ClientSecret = config["Discord:ClientSecret"];
-        o.SaveTokens = true;
         o.Scope.Add("guilds");
         o.Scope.Add("guilds.members.read");
       });
