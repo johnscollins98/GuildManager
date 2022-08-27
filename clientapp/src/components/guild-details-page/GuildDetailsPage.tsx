@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { useParams } from 'react-router-dom';
-import { useFetchUserDiscordGuild } from '../../lib/user-discord/queries/useFetchUserDiscordGuild';
+import { Link, useParams } from 'react-router-dom';
+import { useFetchGuildMembers } from '../../lib/discord-guild/queries/useFetchGuildMembers';
 import ErrorDisplay from '../common/ErrorDisplay';
 import Loader from '../common/Loader';
 
@@ -10,28 +10,33 @@ const GuildDetailsPage: FC<GuildDetailsPageProps> = () => {
   const { guildId } = useParams();
   if (!guildId) throw Error('Guild ID not found');
 
-  const { data: guild, error, isLoading } = useFetchUserDiscordGuild(guildId);
+  const { data: members, error, isLoading } = useFetchGuildMembers(guildId);
 
   if (error) return <ErrorDisplay error={error} />;
-  if (isLoading || !guild) return <Loader />;
+  if (isLoading || !members) return <Loader />;
 
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Nickname</th>
-          <th>Roles</th>
-          <th>Join Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{guild.nick}</td>
-          <td>{guild.roles.join(',')}</td>
-          <td>{new Date(guild.joinedAt).toLocaleDateString()}</td>
-        </tr>
-      </tbody>
-    </table>
+    <>
+      <Link className="btn btn-primary" to={`/${guildId}/config`}>Configure Guild</Link>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Nickname</th>
+            <th>Join Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {members.map((guildMember) => (
+            <tr>
+              <td>{guildMember.user.username}</td>
+              <td>{guildMember.nick}</td>
+              <td>{new Date(guildMember.joinedAt).toLocaleDateString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 
