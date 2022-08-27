@@ -6,7 +6,11 @@ export const useFetchGuildConfig = (guildId: string) => {
   return useQuery<GuildConfigDetailDto, AxiosError>(
     ['guildConfig', guildId],
     () => {
-      return axios.get(`/GuildConfiguration/${guildId}`).then((r) => r.data);
+      return axios
+        .get(`/GuildConfiguration/${guildId}`, {
+          validateStatus: (status) => status < 300 || status === 404,
+        })
+        .then((r) => (r.status === 200 ? r.data : null));
     }
   );
 };

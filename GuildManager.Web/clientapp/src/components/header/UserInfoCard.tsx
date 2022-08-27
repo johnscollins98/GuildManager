@@ -5,14 +5,14 @@ import Loader from '../common/Loader';
 interface UserInfoCardProps {}
 
 const UserInfoCard: FC<UserInfoCardProps> = () => {
-  const { data, isError, isLoading } = useFetchUserData();
+  const { data, isLoading } = useFetchUserData();
   if (isLoading) return <Loader />;
 
   const devEndpoint = process.env.REACT_APP_API_ENDPOINT ?? '';
 
   return (
     <>
-      {isError && (
+      {!data && (
         <a href={`${devEndpoint}/Auth/Login`} className="btn btn-primary">
           Login
         </a>

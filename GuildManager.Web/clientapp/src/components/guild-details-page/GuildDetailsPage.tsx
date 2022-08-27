@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useFetchGuildMembers } from '../../lib/discord-guild/queries/useFetchGuildMembers';
 import ErrorDisplay from '../common/ErrorDisplay';
 import Loader from '../common/Loader';
@@ -8,9 +8,6 @@ interface GuildDetailsPageProps {}
 
 const GuildDetailsPage: FC<GuildDetailsPageProps> = () => {
   const { guildId } = useParams();
-  const location = useLocation();
-  const locationState = (location?.state ?? {}) as { success?: string, error?: string };
-  console.log(locationState);
   if (!guildId) throw Error('Guild ID not found');
 
   const { data: members, error, isLoading } = useFetchGuildMembers(guildId);
