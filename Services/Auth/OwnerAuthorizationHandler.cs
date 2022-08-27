@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
 namespace GuildManager;
@@ -7,13 +7,13 @@ public class OwnerRequirement : IAuthorizationRequirement { }
 
 public class OwnerAuthorizationHandler : AuthorizationHandler<OwnerRequirement>
 {
-  private readonly IUserDiscordService userDiscordService;
   private readonly HttpContext httpContext;
+  private readonly IDiscordService discordService;
 
-  public OwnerAuthorizationHandler(IUserDiscordService userDiscordService, IHttpContextAccessor httpContextAccessor)
+  public OwnerAuthorizationHandler(IDiscordService discordService, IHttpContextAccessor httpContextAccessor)
   {
-    this.userDiscordService = userDiscordService ?? throw new ArgumentNullException(nameof(userDiscordService));
     this.httpContext = httpContextAccessor.HttpContext ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+    this.discordService = discordService ?? throw new ArgumentNullException(nameof(discordService));
   }
 
   protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, OwnerRequirement requirement)
@@ -24,13 +24,16 @@ public class OwnerAuthorizationHandler : AuthorizationHandler<OwnerRequirement>
       throw new MissingGuildIdException();
     }
 
+    var userId = httpContext.User.GetUserId();
+    if (userId == null)
+    {
+      context.Fail(new AuthorizationFailureReason(this, "No user ID"));
+      return;
+    }
+
     try
     {
-      var userGuilds = await userDiscordService.GetUserGuildsAsync();
-      var isOwner = userGuilds.Any(userGuild =>
-      {
-        return userGuild.Id == guildId.ToString() && userGuild.Owner;
-      });
+      var isOwner = await discordService.IsUserGuildOwnerAsync(guildId, userId);
 
       if (isOwner)
       {

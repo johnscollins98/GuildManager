@@ -8,10 +8,11 @@ public static class AutoMapperExtension
   {
     services.AddAutoMapper(o =>
     {
-      o.CreateMap<Guild, GuildDto>();
+      o.CreateMap<PartialGuild, GuildDto>();
       o.CreateMap<GuildMember, GuildMemberDto>();
       o.CreateMap<Discord.User, Discord.UserDto>();
       o.CreateMap<Discord.Role, Discord.RoleListDto>();
+      o.CreateMap<Discord.Guild, GuildDto>();
     });
 
     services.AddAutoMapper(typeof(GuildConfigurationProfile).Assembly);

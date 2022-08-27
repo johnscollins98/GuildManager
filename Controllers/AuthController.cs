@@ -35,8 +35,8 @@ public class AuthController : ControllerBase
       return Unauthorized();
     }
 
-    var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-    var name = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+    var id = User.GetUserId();
+    var name = User.GetName();
 
     if (id == null || name == null)
     {
@@ -45,8 +45,8 @@ public class AuthController : ControllerBase
 
     return Ok(new AuthUserDto
     {
-      Id = id.Value,
-      Name = name.Value
+      Id = id,
+      Name = name
     });
   }
 }

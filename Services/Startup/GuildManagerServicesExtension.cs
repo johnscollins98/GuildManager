@@ -7,7 +7,6 @@ public static class GuildManagerServicesExtension
 {
   public static void AddGuildManagerServices(this IServiceCollection services, ConfigurationManager config)
   {
-    services.AddHttpClient<IUserDiscordService, UserDiscordService>();
     services.AddHttpClient<IDiscordService, DiscordService>(o =>
     {
       var botToken = config["Discord:BotToken"];

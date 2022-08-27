@@ -35,7 +35,7 @@ public class DiscordController : ControllerBase
   [HttpGet("Guild/{guildId}/Roles")]
   public async Task<ActionResult<IEnumerable<RoleListDto>>> GetRoleList(string guildId)
   {
-    var roles = await discordService.GetGuildRoles(guildId);
+    var roles = await discordService.GetGuildRolesAsync(guildId);
     if (roles == null)
     {
       return NotFound();
