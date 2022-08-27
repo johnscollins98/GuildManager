@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http.Json;
 
 namespace GuildManager.Discord;
@@ -16,9 +17,15 @@ public class GuildApi : IGuildApi
     return client.GetFromJsonAsync<Guild?>($"{guildId}");
   }
 
-  public Task<GuildMember?> GetGuildMemberAsync(string guildId, string userId)
+  public async Task<GuildMember?> GetGuildMemberAsync(string guildId, string userId)
   {
-    return client.GetFromJsonAsync<GuildMember?>($"{guildId}/members/{userId}");
+    var response = await client.GetAsync($"{guildId}/members/{userId}");
+    if (response.StatusCode == HttpStatusCode.NotFound)
+    {
+      return null;
+    }
+    response.EnsureSuccessStatusCode();
+    return await response.Content.ReadFromJsonAsync<GuildMember>();
   }
 
   public Task<IEnumerable<GuildMember>?> GetGuildMemberListAsync(string guildId, int limit)

@@ -38,7 +38,6 @@ public class DiscordService : IDiscordService
 
   public async Task<GuildMember?> GetGuildMemberAsync(string guildId, string userId)
   {
-
     return await discordGuildApi.GetGuildMemberAsync(guildId, userId);
   }
 
