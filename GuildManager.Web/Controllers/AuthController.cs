@@ -29,11 +29,6 @@ public class AuthController : ControllerBase
   [Authorize]
   public ActionResult<AuthUserDto> GetCurrentUserInfo()
   {
-    if (User == null)
-    {
-      return Unauthorized();
-    }
-
     var id = User.GetUserId();
     var name = User.GetName();
 
