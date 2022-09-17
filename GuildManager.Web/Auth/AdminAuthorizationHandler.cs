@@ -53,10 +53,8 @@ public class AdminAuthorizationHandler : AuthorizationHandler<AdminRequirement>
       return;
     }
     
-    var isAdmin = guildConfig.AdminRoles.Any(adminRole => 
-    {
-      return guildMember.Roles.Contains(adminRole.RoleId);
-    });
+    var roleIds = guildConfig.AdminRoles.Select(r => r.RoleId).ToList();
+    var isAdmin = roleIds.Contains(guildId) || roleIds.Intersect(guildMember.Roles).Count() > 0;
 
     if (isAdmin)
     {
