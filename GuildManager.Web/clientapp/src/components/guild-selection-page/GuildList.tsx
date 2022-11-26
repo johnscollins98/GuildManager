@@ -3,7 +3,6 @@ import { useFetchUserDiscordGuilds } from '../../lib/user-discord/queries/useFet
 import ErrorDisplay from '../common/ErrorDisplay';
 import Loader from '../common/Loader';
 import GuildCard from './GuildCard';
-import './GuildList.scss';
 
 interface GuildListProps {}
 
@@ -14,7 +13,7 @@ const GuildList: FC<GuildListProps> = () => {
   if (error) return <ErrorDisplay error={error} />;
 
   return (
-    <div className="guild-list">
+    <div className='flex overflow-y-auto overflow-x-hidden flex-wrap gap-2'>
       {guilds &&
         guilds.map((guild) => <GuildCard guild={guild} key={guild.id} />)}
     </div>

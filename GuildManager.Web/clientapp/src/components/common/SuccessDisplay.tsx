@@ -6,11 +6,10 @@ interface SuccessDisplayProps extends HTMLAttributes<HTMLDivElement> {
 
 const SuccessDisplay: FC<SuccessDisplayProps> = ({
   message,
-  className,
   ...props
 }) => {
   return (
-    <div className={`alert alert-success ${className ?? ''}`} {...props}>
+    <div {...props}>
       {message}
     </div>
   );

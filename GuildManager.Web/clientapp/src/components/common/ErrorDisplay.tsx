@@ -5,9 +5,9 @@ interface ErrorProps extends HTMLAttributes<HTMLDivElement> {
   error: AxiosError | string;
 }
 
-const ErrorDisplay: FC<ErrorProps> = ({ error, className, ...props }) => {
+const ErrorDisplay: FC<ErrorProps> = ({ error, ...props }) => {
   return (
-    <div className={`alert alert-danger ${className ?? ''}`} {...props}>
+    <div {...props}>
       {typeof error === 'string'
         ? error
         : error.response?.status === 404

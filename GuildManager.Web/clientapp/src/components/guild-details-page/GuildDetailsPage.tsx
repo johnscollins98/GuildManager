@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { useFetchGuildMembers } from '../../lib/discord-guild/queries/useFetchGuildMembers';
 import ErrorDisplay from '../common/ErrorDisplay';
 import Loader from '../common/Loader';
+import { IoMdSettings } from 'react-icons/io';
+import { Button } from '../common/Button';
 
 interface GuildDetailsPageProps {}
 
@@ -17,25 +19,21 @@ const GuildDetailsPage: FC<GuildDetailsPageProps> = () => {
 
   return (
     <>
-      <Link className="btn btn-primary" to={`/${guildId}/config`}>Configure Guild</Link>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Nickname</th>
-            <th>Join Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {members.map((guildMember) => (
-            <tr key={guildMember.user.username}>
-              <td>{guildMember.user.username}</td>
-              <td>{guildMember.nick}</td>
-              <td>{new Date(guildMember.joinedAt).toLocaleDateString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Link to={`/${guildId}/config`}>
+        <Button>
+          <IoMdSettings size={20} className="hover:bg mr-2" />
+          Configure
+        </Button>
+      </Link>
+      <div className="flex flex-wrap overflow-auto mt-3 gap-3">
+        {members.map(member => (
+          <Link to='#' key={member.user.username} className='border rounded-md p-3 flex-basis-1/4 flex-1 hover:bg-slate-100 dark:border-0 dark:bg-slate-500 hover:dark:bg-slate-400 transition-colors ease-in-out duration-150'>
+            <h2 className='text-lg font-bold'>{member.user.username}</h2>
+            <p className='text-xs'>{member.nick}</p>
+            <p className='whitespace-nowrap text-sm'>Joined: {new Date(member.joinedAt).toLocaleDateString()}</p>
+          </Link>
+        ))}
+      </div>
     </>
   );
 };
