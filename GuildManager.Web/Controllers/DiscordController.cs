@@ -31,7 +31,7 @@ public class DiscordController : ControllerBase
     return Ok(mapper.Map<IEnumerable<GuildMemberDto>>(members));
   }
 
-  [HttpGet("Guild/{guildId}/Roles")]
+  [HttpGet("Guilds/{guildId}/Roles")]
   public async Task<ActionResult<IEnumerable<RoleListDto>>> GetRoleList(string guildId)
   {
     var roles = await discordService.GetGuildRolesAsync(guildId);
@@ -42,5 +42,17 @@ public class DiscordController : ControllerBase
     
     var roleDtos = mapper.Map<IEnumerable<RoleListDto>>(roles);
     return Ok(roles);
+  }
+
+  [HttpGet("Guilds/{guildId}")]
+  public async Task<ActionResult<GuildDto>> GetGuildDetails(string guildId)
+  {
+    var guild = await discordService.GetGuildDetailsAsync(guildId);
+    if (guild == null)
+    {
+      return NotFound();
+    }
+    var guildDto = mapper.Map<GuildDto>(guild);
+    return Ok(guildDto);
   }
 }

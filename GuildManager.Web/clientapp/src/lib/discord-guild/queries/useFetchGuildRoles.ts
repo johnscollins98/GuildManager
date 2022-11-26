@@ -4,6 +4,6 @@ import { RoleListDto } from '../models/roleListDto';
 
 export const useFetchGuildRoles = (guildId: string) => {
   return useQuery<RoleListDto[], AxiosError>(["roles", guildId], () => {
-    return axios.get(`/Discord/Guild/${guildId}/Roles`).then(r => r.data);
+    return axios.get(`/Discord/Guilds/${guildId}/Roles`).then(r => r.data);
   });
 }
