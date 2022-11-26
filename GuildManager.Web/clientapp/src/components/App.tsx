@@ -2,11 +2,11 @@ import { FC, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useFetchUserData } from '../lib/user/queries/useFetchUserData';
-import GuildConfigPage from './guild-config-page/GuildConfigPage';
+import GuildConfigPage from './guild-details-page/guild-config-page/GuildConfigPage';
 import GuildDetailsPage from './guild-details-page/GuildDetailsPage';
 import GuildEvents from './guild-details-page/GuildEvents';
 import GuildLog from './guild-details-page/GuildLog';
-import GuildRoster from './guild-details-page/GuildRoster';
+import GuildRosterPage from './guild-details-page/guild-roster-page/GuildRosterPage';
 import GuildSelectionPage from './guild-selection-page/GuildSelectionPage';
 import Header from './header/Header';
 
@@ -32,7 +32,7 @@ const App: FC = () => {
               <Route path="/:guildId" element={<GuildDetailsPage />}>
                 <Route index element={<Navigate to='roster' replace />} />
                 <Route path="config" element={<GuildConfigPage />} />
-                <Route path="roster" element={<GuildRoster />} />
+                <Route path="roster" element={<GuildRosterPage />} />
                 <Route path="log" element={<GuildLog />} />
                 <Route path="events" element={<GuildEvents />} />
               </Route>

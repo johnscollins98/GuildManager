@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useParams } from 'react-router-dom';
-import { useFetchGuildRoles } from '../../lib/discord-guild/queries/useFetchGuildRoles';
-import { GuildConfigDetailDto } from '../../lib/guild-config/models/guildConfigDetailDto';
-import { useUpdateGuildConfig } from '../../lib/guild-config/mutations/useUpdateGuildConfig';
-import { useFetchGuildConfig } from '../../lib/guild-config/queries/useFetchGuildConfig';
-import ErrorDisplay from '../common/ErrorDisplay';
-import Loader from '../common/Loader';
+import { useFetchGuildRoles } from '../../../lib/discord-guild/queries/useFetchGuildRoles';
+import { GuildConfigDetailDto } from '../../../lib/guild-config/models/guildConfigDetailDto';
+import { useUpdateGuildConfig } from '../../../lib/guild-config/mutations/useUpdateGuildConfig';
+import { useFetchGuildConfig } from '../../../lib/guild-config/queries/useFetchGuildConfig';
+import ErrorDisplay from '../../common/ErrorDisplay';
+import Loader from '../../common/Loader';
 import GuildConfigForm from './GuildConfigForm';
 
 interface GuildConfigPageProps {}

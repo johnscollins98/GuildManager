@@ -1,8 +1,8 @@
 import { FC, FormEvent, useState } from 'react';
-import { RoleListDto } from '../../lib/discord-guild/models/roleListDto';
-import { GuildConfigDetailDto } from '../../lib/guild-config/models/guildConfigDetailDto';
-import { Button } from '../common/Button';
-import { Input } from '../common/Input';
+import { RoleListDto } from '../../../lib/discord-guild/models/roleListDto';
+import { GuildConfigDetailDto } from '../../../lib/guild-config/models/guildConfigDetailDto';
+import { Button } from '../../common/Button';
+import { Input } from '../../common/Input';
 
 interface GuildConfigFormProps {
   guildConfig: GuildConfigDetailDto;
